@@ -1,5 +1,10 @@
 # algorithm.js
 
+   Use javascript to implement some basic algorithm 
+
 ## implemented
 
-selectSort
+Sorting:
+
+- selectSort
+- bubbleSort
