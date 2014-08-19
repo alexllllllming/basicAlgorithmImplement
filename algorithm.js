@@ -27,13 +27,13 @@
         }
         
         // time complexity: O(n^2)
-        for (i = 0, n = arr.length - 1; i < n -1; i++){
+        for (i = 0, n = arr.length - 1; i < n; i++){
 
             min = i;
             //  find the smallest element between j to the last
-            for (j = i + 1; j < n; j++){
+            for (j = i + 1; j <= n; j++){
 
-                if (compare(arr[min]) > 0)
+                if (compare(arr[min],arr[j]) > 0)
                     min = j;
             }
 
