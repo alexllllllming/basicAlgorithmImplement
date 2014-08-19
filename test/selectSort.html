@@ -6,6 +6,7 @@
     <script src="../algorithm.js" type="text/javascript" charset="utf-8"></script>
     <script type="text/javascript" charset="utf-8">
 
+        document.write('<h3>defaut order: ascending</h3>');
         // test one 
         var arr = [13,96,32,39,69];
         document.write("<p>before sort:" + arr + "</p>");
@@ -20,6 +21,18 @@
         document.write("<p>before sort:" + arr + "</p>");
         arr.selectSort();
         document.write("<p>after sort:" + arr + "</p>");
+
+
+        document.write('<h3>custom order: descending</h3>');
+
+        var arr = [11,22,33,44,55],
+            cmp = function(a,b){
+                return b-a;
+            };
+        document.write("<p>before sort:" + arr + "</p>");
+        arr.selectSort(cmp);
+        document.write("<p>after sort:" + arr + "</p>");
+
         
                 
     </script>
