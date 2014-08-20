@@ -71,25 +71,22 @@
     };
 
     // time complexity: O(nlogn)
-    Array.prototype.mergeSort = function(compare){
+    Array.prototype.mergeSort = (function(compare){
 
-        // compare function
-        compare = compare ? compare : cmp;
-
-        var that = this,
-
+        var defaultCmp = cmp, 
             // merge function
-            merge = function(left, right, arr){
-             var lLength = left.length,
+            merge = function(left, right, arr,compare){
+
+                var lLength = left.length,
                     rLength = right.length,
                     i = 0, // left pointer
                     j = 0, // right pointer
                     k = 0; // arr point
 
-             while (i < lLength && j < rLength){
+                while (i < lLength && j < rLength){
             
-                if(compare(left[i], right[j]) > 0)
-                    arr[k++] = right[j++];
+                    if(compare(left[i], right[j]) > 0)
+                        arr[k++] = right[j++];
                     else
                         arr[k++] = left[i++];
                 }
@@ -106,27 +103,30 @@
                         arr[k++] = left[i]
                 }
         };
-        // return annoymous for not detecting compare everytime
-        // and reuse the merge function
-        return (function(){
-            var length = that.length;
+        // reuse the merge function
+        return function(compare){
+
+            // compare function
+            compare = compare ? compare : defaultCmp;
+
+            var length = this.length;
 
             if (length > 1){
         
                 // divide
-                var left = that.slice(0, length/2),
-                    right = that.slice(length/2);
+                var left = this.slice(0, length/2),
+                    right = this.slice(length/2);
 
                 left.mergeSort(compare);
                 right.mergeSort(compare);
 
                 // merge 
-                merge(left, right, that);
+                merge(left, right, this, compare);
             }
 
-        })();
+        };
 
-    };
+    })();
 
 
 }();

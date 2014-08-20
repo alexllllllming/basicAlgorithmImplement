@@ -8,3 +8,4 @@ Sorting:
 
 - selectSort
 - bubbleSort
+- mergeSort
