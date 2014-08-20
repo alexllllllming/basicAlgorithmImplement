@@ -24,16 +24,14 @@
                     return -1;
             };
 
+    // time complexity: O(n^2)
     Array.prototype.selectSort = function(compare){
          
         arr = this;
 
-        if (!compare){
-            // default order: ascending
-            compare = cmp;        
-        }
+        // compare function
+        compare = compare ? compare : cmp;
 
-        // time complexity: O(n^2)
         // outer loop: 0 to n-2
         for (i = 0, n = arr.length - 1; i < n; i++){
 
@@ -52,15 +50,13 @@
         }
     };
 
+    // time complexity: O(n^2)
     Array.prototype.bubbleSort = function(compare){
         arr = this;
 
-        if (!compare){
-            // default order: ascending
-            compare = cmp;        
-        }
+        // compare function
+        compare = compare ? compare : cmp;
 
-        // time complexity: O(n^2)
         // outer loop: 0 to n-2
         for (i = 0, n = arr.length - 1; i < n; i++){
             for (j = 0; j < n - i; j++){
@@ -74,5 +70,65 @@
         }
     };
 
+    // time complexity: O(nlogn)
+    Array.prototype.mergeSort = function(compare){
+
+        // compare function
+        compare = compare ? compare : cmp;
+
+        var that = this,
+
+            // merge function
+            merge = function(left, right, arr){
+             var lLength = left.length,
+                    rLength = right.length,
+                    i = 0, // left pointer
+                    j = 0, // right pointer
+                    k = 0; // arr point
+
+             while (i < lLength && j < rLength){
+            
+                if(compare(left[i], right[j]) > 0)
+                    arr[k++] = right[j++];
+                    else
+                        arr[k++] = left[i++];
+                }
+        
+                // left array all copid and not right
+                if (i == lLength && j < rLength){
+                    // copy the left part
+                    for(;j < rLength; j++)
+                        arr[k++] = right[j]
+                }
+                else if (j == rLength && i < lLength){
+                    // copy the left part
+                    for (;i < lLength; i++)
+                        arr[k++] = left[i]
+                }
+        };
+        // return annoymous for not detecting compare everytime
+        // and reuse the merge function
+        return (function(){
+            var length = that.length;
+
+            if (length > 1){
+        
+                // divide
+                var left = that.slice(0, length/2),
+                    right = that.slice(length/2);
+
+                left.mergeSort(compare);
+                right.mergeSort(compare);
+
+                // merge 
+                merge(left, right, that);
+            }
+
+        })();
+
+    };
+
+
 }();
+
 
