@@ -136,29 +136,29 @@
         }
 
     })()
-
-    Array.prototype.quickSort = function() {
+    
+    // time complexityO(nlogn)
+    Array.prototype.quickSort = function(compare,l,r) {
             
-            var i = 1,                 // left pointer
+
+            var l = l ? l : 0,
+                r = r ? r : this.length - 1,
                 temp,
-                length = this.length,
-                j = length - 1,        // right pointer
-                key = this[0]
+                i = l          // left pointer
+                j = r ,        // right pointer
+                key = this[i++]
 
             // compare function
-            compare = compare ? compare : defaultCmp
-
-            // prevent i point out of bound
-            this.push(key)
+            compare = compare ? compare : cmp
 
             // patition 
             while (true){
                 // increase until meet greater than key
-                while (this[i] < key){
+                while (compare(this[i], key) < 0 && i < r){
                     i++;
                 }
                 // decrease until meet smaller than key
-                while (this[j] > key){
+                while (compare(this[j], key) > 0&& j > l){
                     j--;
                 }
                 
@@ -173,16 +173,17 @@
                 }
             }
 
-            // remove the last 
-            this.splice(length)
-
             // swap key and this[j]
-            this[0]= this[j]
+            this[l]= this[j]
             this[j] = key 
-            quickSort(this.slice(0,j))
 
-
-        
+            // divide
+            if ( l < j-1 ){
+                this.quickSort(compare, l, j-1)
+            }
+            if ( j+1 < r ){
+                this.quickSort(compare, j+1, r)
+            }
     }
     
 
