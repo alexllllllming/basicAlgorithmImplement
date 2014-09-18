@@ -166,7 +166,7 @@
                     // swap 
                     temp = this[i]
                     this[i++] = this[j]
-                    this[j++] = temp
+                    this[j--] = temp
                 }
                 else{
                     break;
